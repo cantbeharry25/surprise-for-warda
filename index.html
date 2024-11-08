@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Surprise for Warda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Background Gradient */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #f6d365, #fda085, #fbc2eb, #a18cd1);
+            background-size: 200% 200%;
+            animation: gradientBackground 8s ease infinite;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0 10px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-top: 20px;
+            color: #ff69b4;
+        }
+
+        /* Floating Balloons */
+        .balloon {
+            width: 40px;
+            height: 60px;
+            position: absolute;
+            bottom: -100px;
+            animation: floatBalloon 12s linear infinite;
+            opacity: 0.8;
+        }
+
+        .balloon:nth-child(2) { left: 15%; animation-duration: 14s; }
+        .balloon:nth-child(3) { left: 35%; animation-duration: 11s; }
+        .balloon:nth-child(4) { left: 55%; animation-duration: 13s; }
+        .balloon:nth-child(5) { left: 75%; animation-duration: 12s; }
+
+        @keyframes floatBalloon {
+            0% { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Gift Box */
+        .gift-box {
+            width: 120px;
+            height: 120px;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        .gift-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .gift-box:hover {
+            transform: scale(1); /* Prevent size increase */
+        }
+
+        /* Compliment Section Styling */
+        .compliment-section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .compliment-button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .compliment-button:hover {
+            background-color: #ff85c0;
+        }
+
+        .compliment-text {
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        /* Floating Gift Boxes */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Emoji Pop Animation */
+        @keyframes popEmoji {
+            0% { transform: scale(0) translateY(0); opacity: 1; }
+            50% { transform: scale(1.5) translateY(-20px); opacity: 1; }
+            100% { transform: scale(1) translateY(-40px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Balloons -->
+    <img src="b1.png" class="balloon" style="left: 10%;">
+    <img src="b3.png" class="balloon" style="left: 30%;">
+    <img src="b2.png" class="balloon" style="left: 50%;">
+    <img src="b3.png" class="balloon" style="left: 70%;">
+    <img src="b4.png" class="balloon" style="left: 90%;">
+
+    <div class="container">
+        <!-- Main Title -->
+        <h1>🎁 Special Surprise for Warda 🎉</h1>
+
+        <!-- Different Gift Boxes -->
+        <div class="gift-box" onclick="openGiftBox(this, '🍰')">
+            <img src="gb2.png" alt="Gift 1">
+        </div>
+        <div class="gift-box" onclick="openGiftBox(this, '💖')">
+            <img src="gb3.png" alt="Gift 2">
+        </div>
+        <div class="gift-box" onclick="openGiftBox(this, '🧸')">
+            <img src="gb4.png" alt="Gift 3">
+        </div>
+
+        <!-- Compliment Section -->
+        <div class="compliment-section">
+            <h2>💌 Compliment Generator</h2>
+            <div id="compliment-text" class="compliment-text">Click below to receive a compliment!</div>
+            <button class="compliment-button" onclick="generateCompliment()">Get Compliment</button>
+        </div>
+    </div>
+
+    <script>
+        // Compliment Generator Data
+        const compliments = [
+            "You're the kind of person everyone feels lucky to know! 😊",
+            "Your smile lights up even the cloudiest days! 🌈",
+            "Yeh raat bhi kya raat hai, har raat mein teri yaad hai, 🕊Jis raat mein teri yaad nahi, woh raat mujhe yaad nahi.",
+            "Warda, you make the world a more beautiful place! 🌹",
+            "You're truly one of a kind! 🌟"
+        ];
+
+        // Function to display a random compliment
+        function generateCompliment() {
+            const complimentText = document.getElementById('compliment-text');
+            complimentText.innerText = compliments[Math.floor(Math.random() * compliments.length)];
+        }
+
+        // Function to open each gift box with emoji effect
+        function openGiftBox(box, emoji) {
+            const emojiElem = document.createElement('span');
+            emojiElem.className = 'emoji';
+            emojiElem.innerText = emoji;
+            document.body.appendChild(emojiElem);
+
+            // Position emoji near the gift box
+            const rect = box.getBoundingClientRect();
+            emojiElem.style.position = 'absolute';
+            emojiElem.style.left = `${rect.left + rect.width / 2}px`;
+            emojiElem.style.top = `${rect.top - 20}px`;
+            emojiElem.style.fontSize = '2em';
+            emojiElem.style.animation = 'popEmoji 1s ease forwards';
+            
+            // Remove emoji after animation
+            setTimeout(() => {
+                emojiElem.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
